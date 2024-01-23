@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+
+<script src="js/three.js"></script>
+<script>
+    //escena camara
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+    //renderer
+    const renderer = new THREE.WebGLRenderer( {alpha: true} );
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    //cubo
+    const geometry = new THREE.BoxGeometry();
+    const material = new THREE.MeshStandardMaterial( {color: 0x0fffff} );
+    const cube = new THREE.Mesh(geometry, material);
+    cube.castShadow = true;
+    cube.position.set(0,0,3);
+    scene.add(cube);
+
+    //suelo
+    var planeGeometry = new THREE.PlaneGeometry(50, 20, 32, 32);
+    const planeMaterial = new THREE.MeshStandardMaterial( {color: 0x666666} );
+    var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+    plane.position.set(0, 0, 0);
+    plane.recieveShadow = true;
+    scene.add(plane);
+ 
+
+    //luz
+    const light = new THREE.SpotLight( 0xffffff, 50 );
+    light.position.set(0, 0, 5);
+    light.castShadow = true;
+    scene.add(light);
+
+    //posicion camara
+
+    //altura
+    camera.position.z = 7;
+    //izquierda/derecha
+    camera.position.x = 0;
+
+    //atras/alante
+    camera.position.y = -2;
+
+    //mirar arriba/abajo
+    camera.rotation.x = 0.2;
+
+    //mirar izquierda/derecha
+    camera.rotation.y = 0;
+
+    //funcion
+    function animate() {
+        requestAnimationFrame( animate );
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        renderer.render(scene, camera);
+    }
+    animate();
+</script>
+</body>
+</html>
