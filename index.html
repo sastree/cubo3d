@@ -30,21 +30,28 @@
     const geometry = new THREE.BoxGeometry();
     const material = new THREE.MeshStandardMaterial( {color: 0x0fffff} );
     const cube = new THREE.Mesh(geometry, material);
+    const cube2 = new THREE.Mesh(geometry, material);
+    const cube3 = new THREE.Mesh(geometry, material);
     cube.castShadow = true;
     cube.position.set(0,0,3);
+    cube2.position.set(0,0,3);
+    cube3.position.set(0,0,3);
     scene.add(cube);
+    scene.add(cube2);
+    scene.add(cube3);
+    
 
     //suelo
     var planeGeometry = new THREE.PlaneGeometry(50, 20, 32, 32);
     const planeMaterial = new THREE.MeshStandardMaterial( {color: 0x666666} );
     var plane = new THREE.Mesh(planeGeometry, planeMaterial);
     plane.position.set(0, 0, 0);
-    plane.recieveShadow = true;
+    plane.receiveShadow = true;
     scene.add(plane);
  
 
     //luz
-    const light = new THREE.SpotLight( 0xffffff, 50 );
+    const light = new THREE.SpotLight( 0xffffff, 10 );
     light.position.set(0, 0, 5);
     light.castShadow = true;
     scene.add(light);
@@ -57,7 +64,7 @@
     camera.position.x = 0;
 
     //atras/alante
-    camera.position.y = -2;
+    camera.position.y = -1;
 
     //mirar arriba/abajo
     camera.rotation.x = 0.2;
@@ -69,7 +76,9 @@
     function animate() {
         requestAnimationFrame( animate );
         cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
+        cube2.rotation.y += 0.01;
+        cube3.rotation.z += 0.01;
+
         renderer.render(scene, camera);
     }
     animate();
